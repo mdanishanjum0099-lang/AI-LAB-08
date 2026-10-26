@@ -8,7 +8,6 @@ graph = {
     "F": {"G": 3},
     "G": {}
 }
-
 heuristic = {
     "S": 17,
     "A": 10,
@@ -37,21 +36,26 @@ def get_f(path):
 
 def a_star(start, goal):
     frontier = [[start]]
+    explored = 0
 
     while len(frontier) > 0:
         frontier.sort(key=get_f)
         path = frontier.pop(0)
         node = path[-1]
+        explored = explored + 1
 
         if node == goal:
+            print("Total nodes explored:", explored)
             return path
 
         for neighbour in graph[node]:
             new_path = path + [neighbour]
             frontier.append(new_path)
 
+    print("Total nodes explored:", explored)
     return None
 
 answer = a_star("S", "G")
 print("Path found by A*:", answer)
 print("Total cost of this path:", get_g(answer))
+
